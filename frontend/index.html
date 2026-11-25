@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartTask AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <main class="wrap">
+    <header>
+      <h1>Smart<span>Task</span> AI ✨</h1>
+      <p>Organisez votre travail avec l'aide de l'intelligence artificielle</p>
+    </header>
+
+    <section class="stats">
+      <div class="glass stat"><b id="s-total">0</b><small>Total</small></div>
+      <div class="glass stat"><b id="s-todo">0</b><small>À faire</small></div>
+      <div class="glass stat"><b id="s-high">0</b><small>Urgentes</small></div>
+      <div class="glass stat"><b id="s-done">0</b><small>Terminées</small></div>
+    </section>
+
+    <section class="glass add">
+      <input id="title" placeholder="Nouvelle tâche (ex : Rendu projet demain)…">
+      <input id="desc" placeholder="Description (optionnel)">
+      <button id="add">+ Ajouter (priorité par l'IA)</button>
+    </section>
+
+    <section class="glass ai">
+      <div class="ai-head">
+        <h2>🤖 Assistant IA</h2>
+        <button id="suggest" class="ghost">Obtenir des suggestions</button>
+      </div>
+      <ul id="tips"><li>Cliquez sur le bouton pour recevoir des conseils.</li></ul>
+    </section>
+
+    <section class="filters">
+      <button class="chip active" data-f="all">Toutes</button>
+      <button class="chip" data-f="todo">À faire</button>
+      <button class="chip" data-f="done">Terminées</button>
+    </section>
+
+    <section id="list" class="list"></section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
