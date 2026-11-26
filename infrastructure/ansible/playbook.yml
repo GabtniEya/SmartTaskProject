@@ -1,0 +1,56 @@
+
+---
+- name: Configure DevOps VM
+  hosts: devops_servers
+  become: true
+  tasks:
+    - name: Ensure Git and Ansible are installed
+      apt:
+        name:
+          - git
+          - ansible
+        state: present
+        update_cache: true
+
+- name: Configure Application VM
+  hosts: application_servers
+  become: true
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+          - git
+        state: present
+        update_cache: true
+
+    - name: Ensure Docker is running
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+- name: Configure Monitoring VM
+  hosts: monitoring_servers
+  become: true
+  tasks:
+    - name: Ensure Nagios and NRPE plugin are installed
+      apt:
+        name:
+          - nagios4
+          - nagios-nrpe-plugin
+        state: present
+        update_cache: true
+
+    - name: Ensure Nagios is running
+      service:
+        name: nagios4
+        state: started
+        enabled: true
+
+    - name: Ensure Apache is running
+      service:
+        name: apache2
+        state: started
+        enabled: true

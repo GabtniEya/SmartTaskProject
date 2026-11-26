@@ -1,0 +1,33 @@
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/jammy64"
+
+  config.vm.define "devops" do |vm|
+    vm.vm.hostname = "devops"
+    vm.vm.network "private_network", ip: "192.168.56.10"
+    vm.vm.provider "virtualbox" do |v|
+      v.memory = 2048
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define "application" do |vm|
+    vm.vm.hostname = "application"
+    vm.vm.network "private_network", ip: "192.168.56.11"
+    vm.vm.provider "virtualbox" do |v|
+      v.memory = 3072
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define "monitoring" do |vm|
+    vm.vm.hostname = "monitoring"
+    vm.vm.network "private_network", ip: "192.168.56.12"
+    vm.vm.provider "virtualbox" do |v|
+      v.memory = 1536
+      v.cpus = 1
+    end
+  end
+
+end
