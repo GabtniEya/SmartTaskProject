@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: smarttask
+      POSTGRES_USER: smarttask
+      POSTGRES_PASSWORD: smarttask
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smarttask"]
+      interval: 5s
+      retries: 10
+
+  ai-service:
+    build: ./ai-service
+    ports: ["8001:8001"]
+
+  backend:
+    build: ./backend
+    environment:
+      DB_HOST: db
+      AI_URL: http://ai-service:8001
+    ports: ["8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+      ai-service:
+        condition: service_started
+
+  frontend:
+    build: ./frontend
+    ports: ["8080:80"]
+    depends_on: [backend]
+
+volumes:
+  pgdata:
